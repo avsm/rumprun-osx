@@ -16,13 +16,15 @@ fi
 cd netbsd
 ./build.sh -U -T elftools.x86_64 -m amd64 tools
 
-echo export PATH=\"$PWD/elftools.x86_64/bin:\$PATH\" > ${CROSSENV}
-echo export READELF=\"$PWD/elftools.x86_64/bin/x86_64--netbsd-readelf\" >> ${CROSSENV}
+echo export PATH=\"$DESTDIR/netbsd/elftools.x86_64/bin:\$PATH\" > ${CROSSENV}
+echo export READELF=\"$DESTDIR/netbsd/elftools.x86_64/bin/x86_64--netbsd-readelf\" >> ${CROSSENV}
 echo export CC=\"x86_64--netbsd-gcc\" >> ${CROSSENV}
 chmod a+x ${CROSSENV}
 
 cd ${DESTDIR}
 eval `cat ${CROSSENV}`
+
+bash
 
 if [ ! -d rumprun ]; then
   git clone http://repo.rumpkernel.org/rumprun
